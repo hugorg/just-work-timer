@@ -6,16 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.demo.justworktimer.data.Converters
+import com.demo.justworktimer.data.dao.SetActionDao
 import com.demo.justworktimer.data.dao.WorkoutDao
 import com.demo.justworktimer.data.dao.WorkoutSetDao
+import com.demo.justworktimer.data.entity.SetAction
 import com.demo.justworktimer.data.entity.Workout
 import com.demo.justworktimer.data.entity.WorkoutSet
 
-@Database(entities = [WorkoutSet::class, Workout::class], version = 1)
+@Database(entities = [WorkoutSet::class, Workout::class, SetAction::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class WTAppDatabase : RoomDatabase() {
     abstract fun workoutSetDao(): WorkoutSetDao
     abstract fun workoutDao(): WorkoutDao
+    abstract fun setActionDao(): SetActionDao
 
     companion object{
         private var appDB : WTAppDatabase? = null

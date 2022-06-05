@@ -29,22 +29,7 @@ import java.util.*
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SetScreen(navigator : Navigator) {
-    val set = WorkoutSet(1,
-        "Tabata",
-        actions = listOf(SetAction(1, "Rest", 5000))
-    )
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        floatingActionButtonPosition = FabPosition.End,
-        floatingActionButton = {
-            Button(onClick = {}){
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "fab icon")
-        } },
-    ) {
-        SetItemList(listOf(set))
-    }
+
 }
 
 /*

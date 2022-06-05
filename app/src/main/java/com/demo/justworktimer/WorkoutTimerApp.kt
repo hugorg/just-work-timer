@@ -7,6 +7,5 @@ import dagger.hilt.android.HiltAndroidApp
 class WorkoutTimerApp: Application() {
     override fun onCreate() {
         super.onCreate()
-
     }
 }

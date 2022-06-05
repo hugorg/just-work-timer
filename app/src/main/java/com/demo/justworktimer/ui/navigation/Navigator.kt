@@ -2,12 +2,13 @@ package com.demo.justworktimer.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.demo.justworktimer.data.entity.SetAction
-import com.demo.justworktimer.data.entity.WorkoutSet
-import com.demo.justworktimer.ui.sets.SetScreen
+import com.demo.justworktimer.feature.set.SetCoordinator
+import com.demo.justworktimer.feature.set.SetViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
@@ -23,10 +24,16 @@ class Navigator {
         _sharedFlow.tryEmit(navTarget)
     }
 
-    enum class NavTarget(val label: String) {
-        Workouts("workout"),
-        Sets("sets"),
-        WorkoutPlayer("player")
+    enum class NavTarget(var label: String, var id: Int = 0) {
+        Workouts("workout", 0),
+        Sets("sets", 0),
+        WorkoutPlayer("player", 0),
+        NewSet("newSet",0);
+
+        fun setId(id: Int): NavTarget {
+            this.id = id;
+            return this
+        }
     }
 }
 
@@ -46,7 +53,9 @@ fun NavigationComponent(
         startDestination = Navigator.NavTarget.Sets.label
     ) {
         composable(Navigator.NavTarget.Sets.label) {
-            SetScreen(navigator)
+            val setViewModel = hiltViewModel<SetViewModel>()
+            SetCoordinator(navigator = navigator,
+                            viewModel = setViewModel)
         }
         composable(Navigator.NavTarget.Workouts.label) {
             //FriendsList(/*...*/)
