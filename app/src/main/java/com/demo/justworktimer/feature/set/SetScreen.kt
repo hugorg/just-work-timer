@@ -10,7 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.demo.justworktimer.data.entity.SetAction
 import com.demo.justworktimer.data.entity.WorkoutSet
-import com.demo.justworktimer.ui.sets.SetItemList
+import com.demo.justworktimer.feature.set.components.SetItemList
+import java.util.*
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,10 +20,13 @@ fun SetScreen(
     state: SetState = SetState(),
     actions: SetActions = LocalSetActions.current
 ) {
-    val set = WorkoutSet(1,
-        "Tabata",
-        actions = listOf(SetAction(1, "Rest", 5000))
-    )
+    val setList = Arrays.asList(WorkoutSet(setId = 1, name = "Tabata", actions = listOf(SetAction(1, "Rest", 5000)), rounds = 3),
+        WorkoutSet(1, "Tabata", listOf(SetAction(1, "Rest", 5000)), 8),
+        WorkoutSet(1, "Tabata", listOf(SetAction(1, "Rest", 5000)), 8),
+        WorkoutSet(1, "Tabata", listOf(SetAction(1, "Rest", 5000)), 8),
+        WorkoutSet(1, "Tabata", listOf(SetAction(1, "Rest", 5000)), 8),
+        WorkoutSet(1, "Tabata", listOf(SetAction(1, "Rest", 5000)), 8))
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButtonPosition = FabPosition.End,
@@ -35,7 +39,7 @@ fun SetScreen(
                     contentDescription = "fab icon")
             } },
     ) {
-        SetItemList(listOf(set), actions.onPlaySetClicked, actions.onEditSetClicked)
+        SetItemList(setList, actions.onPlaySetClicked, actions.onEditSetClicked)
     }
 }
 

@@ -9,6 +9,7 @@ import com.demo.justworktimer.data.entity.SetAction
 data class WorkoutSet(
     @PrimaryKey(autoGenerate = true) var setId : Int,
     @ColumnInfo(name = "name") var name : String,
-    @ColumnInfo(name = "actions") var actions : List<SetAction>
+    @ColumnInfo(name = "actions") var actions : List<SetAction>,
+    @ColumnInfo(name = "rounds") var rounds : Int
 )
 

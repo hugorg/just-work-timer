@@ -43,10 +43,10 @@ fun SetCoordinator(
 fun rememberSetActions(navigator: Navigator): SetActions {
     return remember { SetActions(
         onNewSetClicked = {
-            navigator.navigateTo(Navigator.NavTarget.NewSet)
+            navigator.navigateTo(Navigator.NavTarget.CreateSet)
         },
         onPlaySetClicked = {
-            navigator.navigateTo(Navigator.NavTarget.NewSet.setId(it))
+            navigator.navigateTo(Navigator.NavTarget.CreateSet.setId(it))
         }
     ) }
 }

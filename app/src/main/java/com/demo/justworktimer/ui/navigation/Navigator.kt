@@ -3,10 +3,11 @@ package com.demo.justworktimer.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.demo.justworktimer.feature.createset.CreateSetCoordinator
+import com.demo.justworktimer.feature.createset.CreateSetViewModel
 import com.demo.justworktimer.feature.set.SetCoordinator
 import com.demo.justworktimer.feature.set.SetViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -28,7 +29,7 @@ class Navigator {
         Workouts("workout", 0),
         Sets("sets", 0),
         WorkoutPlayer("player", 0),
-        NewSet("newSet",0);
+        CreateSet("createSet",0);
 
         fun setId(id: Int): NavTarget {
             this.id = id;
@@ -62,6 +63,10 @@ fun NavigationComponent(
         }
         composable(Navigator.NavTarget.WorkoutPlayer.label) {
             //FriendsList(/*...*/)
+        }
+        composable(Navigator.NavTarget.CreateSet.label) {
+            val createSetViewModel = hiltViewModel<CreateSetViewModel>()
+            CreateSetCoordinator(viewModel = createSetViewModel)
         }
     }
 }
