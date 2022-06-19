@@ -1,8 +1,8 @@
-package com.demo.justworktimer.data
+package com.demo.justworktimer.persistance
 
 import androidx.room.TypeConverter
-import com.demo.justworktimer.data.entity.SetAction
-import com.demo.justworktimer.data.entity.WorkoutSet
+import com.demo.justworktimer.persistance.entity.SetAction
+import com.demo.justworktimer.persistance.entity.WorkoutSet
 import com.google.gson.Gson
 import java.util.*
 

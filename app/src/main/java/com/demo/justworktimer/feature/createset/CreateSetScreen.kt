@@ -2,28 +2,29 @@ package com.demo.justworktimer.feature.createset
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.sharp.Add
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
-import androidx.compose.ui.Alignment.Companion.Top
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.demo.justworktimer.feature.createaction.ActionItemList
+import com.demo.justworktimer.feature.createaction.CreateActionCard
+import com.demo.justworktimer.feature.set.components.SetItemList
+import com.demo.justworktimer.ui.basecomponents.BaseText
 import com.demo.justworktimer.ui.basecomponents.BaseTextFieldInput
+import com.demo.justworktimer.ui.theme.LocalDimensions
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,10 +34,9 @@ fun CreateSetScreen(
     actions: CreateSetActions = LocalCreateSetActions.current
 )  {
 
-    val setName = remember { state.setName }
-    val rounds = remember { state.rounds }
-    val setActions = remember { state.setActions }
-    val shouldShowNewAction = remember { mutableStateOf(false)}
+    var setName by remember { state.setName }
+    var rounds by remember { state.rounds}
+    var setActions = remember { state.setActions }
 
     Scaffold(
         modifier = Modifier
@@ -46,76 +46,87 @@ fun CreateSetScreen(
         floatingActionButton = {
             Button(onClick = {
 
-            }){
+            }, shape = CircleShape){
                 Icon(
-                    imageVector = Icons.Default.Add,
+                    imageVector = Icons.Default.Check,
                     contentDescription = "fab icon")
             } },
     ) { padding ->
         Column(modifier = Modifier
-            .background(MaterialTheme.colorScheme.background)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .padding(padding)
             .fillMaxSize()) {
-            LazyVerticalGrid(modifier = Modifier
-                .padding(padding)
-                .background(color = MaterialTheme.colorScheme.primaryContainer),
-                columns = GridCells.Fixed(2)){
-                items(2) { index ->
-                    when(index){
-                        0-> {
-                            BaseTextFieldInput(
-                                modifier = Modifier.background(Color.Transparent),
-                                labelTitle = "Set Name",
-                                text = setName,
-                                onValueChanged = {
-                                    setName.value = it
-                                })
-                        }
-                        1->{
-                            BaseTextFieldInput(
-                                modifier = Modifier.background(Color.Transparent),
-                                labelTitle = "Rounds",
-                                text = rounds,
-                                keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Number
-                                ),
-                                onValueChanged = {
-                                    rounds.value = it
-                                })
-                        }
-                    }
-                }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(LocalDimensions.current.bar),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Create new set",
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center,
+                )
             }
-            //AddAction
-            Row(modifier = Modifier.fillMaxWidth()) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(LocalDimensions.current.medium)
+                    .height(LocalDimensions.current.bar)
+            ) {
                 BaseTextFieldInput(
-                    modifier = Modifier.weight(3f),
-                    labelTitle = "Add Action",
-                    text = mutableStateOf("actionName"),
-                    onValueChanged = {
-                    }
-                )
-                BaseTextFieldInput(
-                    modifier = Modifier.weight(3f),
-                    labelTitle = "Seconds",
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Decimal
-                    ),
-                    text = mutableStateOf("actionName"),
-                    onValueChanged = {
-                    }
-                )
-                Icon(imageVector = Icons.Sharp.Add,
-                    contentDescription = "AddContent",
                     modifier = Modifier
-                        .weight(1f)
                         .fillMaxWidth()
-                        .align(CenterVertically)
-                        .background(color = MaterialTheme.colorScheme.primary))
+                        .weight(7f)
+                        .border(width = 1.dp, color = Color.Transparent)
+                        .padding(2.dp)
+                        .shadow(4.dp, shape = MaterialTheme.shapes.medium),
+                    labelTitle = "Set Name",
+                    text = setName,
+                    onValueChanged = {
+                        setName = it
+                    })
+                BaseTextFieldInput(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(2.6f)
+                        .border(width = 1.dp, color = Color.Transparent)
+                        .padding(2.dp)
+                        .shadow(4.dp, shape = MaterialTheme.shapes.medium),
+                    labelTitle = "Rounds",
+                    text = rounds,
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.NumberPassword),
+                    onValueChanged = {
+                        rounds = it
+                    })
 
             }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(LocalDimensions.current.medium),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(text = "Actions",
+                    modifier = Modifier.wrapContentSize(align = Alignment.Center),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer)
+            }
+            CreateActionCard {
+                setActions.add(it)
+            }
+            ActionItemList(items = setActions){
+                setActions.remove(it)
+                }
+            }
         }
+        //AddAction
+
+           /**/
     }
-}
 
 @SuppressLint("UnrememberedMutableState")
 @Composable

@@ -8,8 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.demo.justworktimer.data.entity.SetAction
-import com.demo.justworktimer.data.entity.WorkoutSet
+import com.demo.justworktimer.persistance.entity.SetAction
+import com.demo.justworktimer.persistance.entity.WorkoutSet
 import com.demo.justworktimer.feature.set.components.SetItemList
 import java.util.*
 

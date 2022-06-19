@@ -1,8 +1,7 @@
 package com.demo.justworktimer.di
 
 import android.content.Context
-import androidx.room.Room
-import com.demo.justworktimer.data.dao.db.WTAppDatabase
+import com.demo.justworktimer.persistance.dao.db.WTAppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

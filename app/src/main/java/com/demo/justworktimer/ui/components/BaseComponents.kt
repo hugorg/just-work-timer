@@ -1,25 +1,18 @@
 package com.demo.justworktimer.ui.basecomponents
 
-import android.annotation.SuppressLint
-import android.view.textclassifier.TextSelection
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.demo.justworktimer.data.entity.SetAction
-import com.demo.justworktimer.data.entity.WorkoutSet
+import com.demo.justworktimer.persistance.entity.SetAction
+import com.demo.justworktimer.persistance.entity.WorkoutSet
 import com.demo.justworktimer.feature.set.components.SetItemComponent
-import java.util.*
 
 @Composable
 fun BaseCard(
@@ -27,7 +20,7 @@ fun BaseCard(
     content: @Composable  () -> Unit) {
     Surface(shadowElevation = 4.dp,
         tonalElevation = 6.dp ,
-        shape = MaterialTheme.shapes.large,
+        //shape = MaterialTheme.shapes.large,
         modifier = modifier) {
         content.invoke()
     }
@@ -36,29 +29,40 @@ fun BaseCard(
 @Composable
 fun BaseText(modifier: Modifier = Modifier, title : String){
     Text(text = title,
-        style = MaterialTheme.typography.titleMedium,
+        modifier = modifier,
+        style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSecondaryContainer)
 }
 
 @Composable
-fun BaseTextFieldInput(modifier: Modifier,
+fun BaseTextFieldInput(modifier: Modifier = Modifier,
                        labelTitle: String,
-                       text : MutableState<String>,
+                       text : TextFieldValue,
                        keyboardOptions : KeyboardOptions = KeyboardOptions.Default,
-                       onValueChanged : (String) -> Unit){
+                       onValueChanged : (TextFieldValue) -> Unit = {}){
             TextField(modifier = modifier,
-                value = TextFieldValue(
-                text = text.value,
-                composition = TextRange(0, 3)
-            ),
+                value = text,
+            textStyle = MaterialTheme.typography.labelMedium.copy(textAlign = TextAlign.Center),
+            shape = MaterialTheme.shapes.medium,
             keyboardOptions = keyboardOptions,
             label = {
-                BaseText(title = labelTitle)
+                Text(
+                    text = labelTitle,
+                    modifier = Modifier,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer)
             },
+            colors = TextFieldDefaults.textFieldColors(
+                textColor =  MaterialTheme.colorScheme.onSecondaryContainer,
+                disabledTextColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent
+            ),
             onValueChange = {
-                onValueChanged.invoke(it.text)
+                onValueChanged.invoke(it)
             })
-
 }
 
 @Preview(name = "BaseComponents")
@@ -85,6 +89,7 @@ private fun PreviewBaseText() {
         color = MaterialTheme.colorScheme.onSecondaryContainer)
 }
 
+/*
 @SuppressLint("UnrememberedMutableState")
 @Composable
 @Preview
@@ -114,4 +119,4 @@ private fun CreateSetScreenPreview() {
             }
         }
     }
-}
+}*/

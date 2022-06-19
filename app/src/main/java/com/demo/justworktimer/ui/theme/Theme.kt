@@ -104,10 +104,10 @@ fun JustWorkTimerTheme(
         typography = Typography,
         shapes = Shapes(
             extraLarge = RoundedCornerShape(4.dp),
-            extraSmall = CircleShape,
+            extraSmall = RoundedCornerShape(4.dp),
             large = RoundedCornerShape(4.dp),
-            medium = CircleShape,
-            small = CircleShape,
+            medium = RoundedCornerShape(4.dp),
+            small = RoundedCornerShape(4.dp),
         ),
         content = content
     )

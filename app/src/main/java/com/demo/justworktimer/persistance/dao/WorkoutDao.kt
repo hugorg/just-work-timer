@@ -1,7 +1,7 @@
-package com.demo.justworktimer.data.dao
+package com.demo.justworktimer.persistance.dao
 
 import androidx.room.*
-import com.demo.justworktimer.data.entity.Workout
+import com.demo.justworktimer.persistance.entity.Workout
 
 @Dao
 sealed interface WorkoutDao{

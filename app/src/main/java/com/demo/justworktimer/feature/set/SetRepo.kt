@@ -1,7 +1,7 @@
 package com.demo.justworktimer.feature.set
 
-import com.demo.justworktimer.data.dao.WorkoutSetDao
-import com.demo.justworktimer.data.entity.WorkoutSet
+import com.demo.justworktimer.persistance.dao.WorkoutSetDao
+import com.demo.justworktimer.persistance.entity.WorkoutSet
 import javax.inject.Inject
 
 class SetRepo @Inject constructor(private val setDao : WorkoutSetDao) {

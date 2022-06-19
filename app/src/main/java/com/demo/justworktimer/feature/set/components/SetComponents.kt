@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.demo.justworktimer.data.entity.SetAction
-import com.demo.justworktimer.data.entity.WorkoutSet
+import com.demo.justworktimer.persistance.entity.SetAction
+import com.demo.justworktimer.persistance.entity.WorkoutSet
 import com.demo.justworktimer.ui.basecomponents.BaseCard
 import com.demo.justworktimer.ui.basecomponents.BaseText
 import java.util.*

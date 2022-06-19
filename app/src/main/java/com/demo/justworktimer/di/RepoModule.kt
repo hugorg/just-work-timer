@@ -1,6 +1,6 @@
 package com.demo.justworktimer.di
 
-import com.demo.justworktimer.data.dao.WorkoutSetDao
+import com.demo.justworktimer.persistance.dao.WorkoutSetDao
 import com.demo.justworktimer.feature.set.SetRepo
 import dagger.Module
 import dagger.Provides

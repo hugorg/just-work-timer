@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.demo.justworktimer.ui.basecomponents.BaseTextFieldInput
 
@@ -19,7 +20,7 @@ import com.demo.justworktimer.ui.basecomponents.BaseTextFieldInput
 @Composable
 fun TextFieldInputPreview(){
     BaseTextFieldInput(labelTitle = "Rounds",
-        text = mutableStateOf("1"),
+        text = TextFieldValue(),
         modifier = Modifier.background(Color.Blue),
         onValueChanged = {})
 }

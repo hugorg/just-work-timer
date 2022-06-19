@@ -1,15 +1,16 @@
 package com.demo.justworktimer.feature.createset
 
 import androidx.compose.runtime.*
-import com.demo.justworktimer.data.entity.SetAction
+import androidx.compose.ui.text.input.TextFieldValue
+import com.demo.justworktimer.persistance.entity.SetAction
 
 
 /**
  * UI State that represents CreateSetScreen
  **/
 class CreateSetState{
-    val setName = mutableStateOf("")
-    val rounds = mutableStateOf("1")
+    val setName = mutableStateOf(TextFieldValue())
+    val rounds = mutableStateOf(TextFieldValue())
     val setActions = mutableStateListOf<SetAction>()
 }
 
@@ -26,7 +27,8 @@ sealed interface CreateSetEvent{
  * passed to the coordinator to handle
  **/
 data class CreateSetActions(
-    val saveSetClicked: () -> Unit = {}
+    val saveSetClicked: () -> Unit = {},
+    val createAction: (SetAction) -> Unit = {}
 )
 
 /**
